@@ -1,7 +1,7 @@
 # Dungeon-Generation
 Modular Dungeon Generation
 
-###### Plans for the DungeonGen Script
+## Plans for the DungeonGen Script
 
 1) Method to make custom "Rooms" of varying sizes
 2) Method to vary hallway lengths (likely determined before hallway creation) 
@@ -12,7 +12,7 @@ Modular Dungeon Generation
 7) Puzzle Rooms
 
 
-###### General plans for game
+## General plans for game
 
 1) Menu (Play (single and multiplayer), Settings, Stats, Exit)
 2) Overworld town before actual dungeon
@@ -26,7 +26,7 @@ Modular Dungeon Generation
 10) One time run items purchasable with coins
 
 
-###### Aesthetics of a dungeon
+## Aesthetics of a dungeon
 
 1) Bones/Skeletons
 2) Torches/Candles
@@ -45,7 +45,7 @@ Modular Dungeon Generation
 9) Fireplace
 
 
-###### Interactive in a dungeon
+## Interactive in a dungeon
 
 1) Chests
 2) Levers
@@ -58,7 +58,7 @@ Modular Dungeon Generation
 6) Shrines
 
 
-###### Aesthetics of a Village
+## Aesthetics of a Village
 
 1) Buildings
   - Silos
@@ -70,7 +70,7 @@ Modular Dungeon Generation
 5) Trees/Rocks
 
 
-###### Interactive in a Village
+## Interactive in a Village
 
 1) Villagers
   - Shopkeeper
