@@ -135,8 +135,19 @@ public class DungeonGeneration : MonoBehaviour {
         /* [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
          * [][][][][][][][][] ADDING DEAD ENDS TO THE LAST EMPTY EXITS [][][][][][][][][][][][][][][]
          */
+        int nodesLeft = pendingNodes.Count;
         foreach (var pendingNode in pendingNodes)
         {
+            
+            if(nodesLeft == 1)
+            {
+                //Place the final room
+
+            }
+            else
+            {
+                //Put the new tag DE in here
+            }
             //Debug.Log("|_| |_|  Closing the pending exits, Count: " + pendingNodes.Count + " |_| |_|");
 
             var newTag = "DE";
@@ -188,6 +199,7 @@ public class DungeonGeneration : MonoBehaviour {
                     roomCount++;
                     newRoom.name = ("Room: " + roomCount);
                     collisionLoop = false;
+                    nodesLeft--; //Subtract one from the amount of nodes left to determine when wer're on the last node
                 }
             } while (collisionLoop);
             yield return new WaitForSeconds(waitTime*deadEndSlowDown);

@@ -307,8 +307,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dunGen: {fileID: 1967635920}
-  player: {fileID: 0}
-  playerSpawn: {fileID: 0}
+  player: {fileID: 114916772544916662, guid: 4237eb1f50e58204a9c20635d150bd39, type: 2}
+  playerSpawn: {fileID: 114372247174810502, guid: 59d6ce72ab929bc4c859b6640f53f6ad,
+    type: 2}
+  mainCamera: {fileID: 845227166}
 --- !u!4 &1545682309
 Transform:
   m_ObjectHideFlags: 0
@@ -329,6 +331,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: dungeonRooms.Array.size
+      value: 42
+      objectReference: {fileID: 0}
     - target: {fileID: 4706141986802702, guid: bdcde32a8f228054aad88d32feb0255e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -364,13 +371,13 @@ Prefab:
     - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
         type: 2}
       propertyPath: dungeonSize
-      value: 8
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
         type: 2}
-      propertyPath: dungeonEntrance
+      propertyPath: dungeonRooms.Array.data[41]
       value: 
-      objectReference: {fileID: 114011023919949798, guid: 59d6ce72ab929bc4c859b6640f53f6ad,
+      objectReference: {fileID: 114452109574705412, guid: d69527554d09a454aa626445484398b0,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bdcde32a8f228054aad88d32feb0255e, type: 2}

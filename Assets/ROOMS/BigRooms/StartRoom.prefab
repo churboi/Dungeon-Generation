@@ -6324,7 +6324,6 @@ MonoBehaviour:
   - R
   - H
   - DE
-  - WB
   IsDefault: 0
 --- !u!114 &114198062186047146
 MonoBehaviour:
@@ -6341,7 +6340,6 @@ MonoBehaviour:
   - R
   - H
   - DE
-  - WB
   IsDefault: 0
 --- !u!114 &114372247174810502
 MonoBehaviour:
@@ -6371,7 +6369,6 @@ MonoBehaviour:
   - R
   - H
   - DE
-  - WB
   IsDefault: 0
 --- !u!114 &114676763161702312
 MonoBehaviour:
@@ -6388,7 +6385,6 @@ MonoBehaviour:
   - R
   - H
   - DE
-  - WB
   IsDefault: 0
 --- !u!114 &114785959102228010
 MonoBehaviour:
@@ -6405,7 +6401,6 @@ MonoBehaviour:
   - R
   - H
   - DE
-  - WB
   IsDefault: 0
 --- !u!114 &114825196332769948
 MonoBehaviour:
@@ -6419,10 +6414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomTags:
-  - R
   - H
-  - DE
-  - WB
   IsDefault: 0
 --- !u!114 &114864188647512808
 MonoBehaviour:
@@ -6439,5 +6431,4 @@ MonoBehaviour:
   - R
   - H
   - DE
-  - WB
   IsDefault: 0
