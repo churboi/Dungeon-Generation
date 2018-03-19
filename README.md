@@ -24,6 +24,7 @@ Modular Dungeon Generation
 5) Add checks so instead of creating dungeons based off of iterations it has a minimum room count based on difficulty
 6) Make some hallways create entrances when intersecting with a room instead of deadend
 7) Puzzle Rooms
+8) Fix wall blockers from canceling iterations*
 
 
 ## Aesthetics of a dungeon
@@ -80,3 +81,10 @@ Modular Dungeon Generation
     - Seer
 2) LeaderBoard (May just keep in stats)
 3) Tavern
+
+## Changes I remember to mention
+
+### [3/19/2018]
+- Adjusted DeadEndFrequencyCorrection to actually work
+
+# (*)Bug
