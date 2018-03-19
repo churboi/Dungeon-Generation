@@ -546,4 +546,5 @@ MonoBehaviour:
   - {fileID: 114663929513960580}
   roomTags:
   - H
+  - SH
   colliders: {fileID: 114855618854714960}

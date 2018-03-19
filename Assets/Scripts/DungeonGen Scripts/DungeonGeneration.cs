@@ -49,12 +49,15 @@ public class DungeonGeneration : MonoBehaviour {
         yield return new WaitForSeconds(waitTime);
 
         var pendingNodes = new List<Node>(startRoom.GetNodes());
+        int nodesLeft = pendingNodes.Count;
 
-        for(int iteration = 0; iteration < dungeonSizeIn; iteration++)
+        for (int iteration = 0; iteration < dungeonSizeIn; iteration++)
         {
+            Debug.Log("Iteration: " + iteration);
             var newExits = new List<Node>();
+            nodesLeft = pendingNodes.Count;
 
-            foreach(var pendingNode in pendingNodes)
+            foreach (var pendingNode in pendingNodes)
             {
                 //Debug.Log("[@] [@] Pending Nodes Left: " + pendingNodes.Count + " [@] [@]");
 
@@ -69,9 +72,8 @@ public class DungeonGeneration : MonoBehaviour {
                 do
                 {
                     //Don't place dead ends when there are few open nodes
-
                     //Make this occur less often
-                    DeadEndFreqencyCorrection(newTag, pendingNodes.Count, pendingNode);
+                    newTag = DeadEndFreqencyCorrection(newTag, nodesLeft, pendingNode);
 
                     var newRoomPrefab = GetRandomWithTag(roomsToUse, newTag);
 
@@ -90,7 +92,6 @@ public class DungeonGeneration : MonoBehaviour {
 
                     if (newRoom.colliders.isCollided())
                     {
-                        
 
                         if (newRoom != null)
                         {
@@ -119,7 +120,8 @@ public class DungeonGeneration : MonoBehaviour {
                         newRoom.name = ("Room: " + roomCount);
                         collisionLoop = false;
                         roomPlacementAttempts = 0;
-                        Debug.Log(newRoom.name + " Placed at: " + newRoom.transform.position); 
+                        Debug.Log(newRoom.name + " Placed at: " + newRoom.transform.position);
+                        nodesLeft--;
                     }
                 } while (collisionLoop);
                 /*
@@ -135,14 +137,16 @@ public class DungeonGeneration : MonoBehaviour {
         /* [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
          * [][][][][][][][][] ADDING DEAD ENDS TO THE LAST EMPTY EXITS [][][][][][][][][][][][][][][]
          */
-        int nodesLeft = pendingNodes.Count;
+        nodesLeft = pendingNodes.Count;
+
+        Debug.Log("Entering dead end placing");
         foreach (var pendingNode in pendingNodes)
         {
-            
-            if(nodesLeft == 1)
+            Debug.Log("Nodes Left: " + nodesLeft);
+            if (nodesLeft == 1)
             {
                 //Place the final room
-
+                Debug.Log("ON LAST NODE");
             }
             else
             {
@@ -173,7 +177,7 @@ public class DungeonGeneration : MonoBehaviour {
 
                 if (newRoom.colliders.isCollided())
                 {
-                    Debug.Log(newRoom.name + ", is collided at: " + newRoom.transform.position);
+                    //Debug.Log(newRoom.name + ", is collided at: " + newRoom.transform.position);
                     if (newRoom != null)
                     {
                         Destroy(newRoom.gameObject);
@@ -183,11 +187,11 @@ public class DungeonGeneration : MonoBehaviour {
                     if (roomPlacementAttempts > 8)
                     {
                         newTag = "WB";
-                        Debug.Log("TAG WB, RPA: " + roomPlacementAttempts);
+                        //Debug.Log("TAG WB, RPA: " + roomPlacementAttempts);
 
                         if (roomPlacementAttempts > 9)
                         {
-                            Debug.Log("DELETING WALL BLOCKER");
+                            //Debug.Log("DELETING WALL BLOCKER");
                             collisionLoop = false;
                             roomPlacementAttempts = 0;
                             Destroy(newRoom.gameObject);
@@ -199,7 +203,8 @@ public class DungeonGeneration : MonoBehaviour {
                     roomCount++;
                     newRoom.name = ("Room: " + roomCount);
                     collisionLoop = false;
-                    nodesLeft--; //Subtract one from the amount of nodes left to determine when wer're on the last node
+                    nodesLeft--;
+                    //Subtract one from the amount of nodes left to determine when wer're on the last node
                 }
             } while (collisionLoop);
             yield return new WaitForSeconds(waitTime*deadEndSlowDown);
@@ -267,21 +272,25 @@ public class DungeonGeneration : MonoBehaviour {
     private static string DeadEndFreqencyCorrection(string tagIn, int nodeCount, Node pendingNode)
     {
         var deadEndFrequencyLoop = false;
+        var newTag = tagIn;
         do
         {
-            if (tagIn == "DE")
+            if (newTag == "DE")
             {
                 if (nodeCount <= 3)
                 {
-                    //Debug.Log("|| || || Dead End Changed || || ||");
-                    tagIn = GetRandom(pendingNode.roomTags);
-
+                    newTag = GetRandom(pendingNode.roomTags);
+                    Debug.Log("DeadEnd Frequency Correction: tagIn; " + tagIn + ", nodeCount; " + nodeCount + ", NewTag: " + newTag);
                     deadEndFrequencyLoop = true;
                 }
             }
             else { deadEndFrequencyLoop = false; }
         } while (deadEndFrequencyLoop);
-        return "";
+        return newTag;
     }
 
+    private static void RandomHallWay(Node pendingNode)
+    {
+
+    }
 }
