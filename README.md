@@ -83,7 +83,7 @@ Modular Dungeon Generation
 
 ## Known Bugs (To fix)
 
-- Fix wall blockers from canceling iterations
+- Fix wall blockers from canceling iterations (Happens when dungeon builds inward on itself)
 
 ## Changes I remember to mention
 
