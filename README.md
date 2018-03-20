@@ -1,7 +1,9 @@
 # Dungeon-Generation
 Modular Dungeon Generation
 
-<a href="#General">General</a>
+<a href="#General">General plans</a>
+<a href="#DunGen">DunGen Script</a>
+<a href="#ADun">Aesthetic of a dungeon</a>
 
 ## General plans for game
 <span id="General"></span>
@@ -18,7 +20,7 @@ Modular Dungeon Generation
 
 
 ## Plans for the DungeonGen Script
-
+<span id="DunGen"></span>
 1) Method to make custom "Rooms" of varying sizes
 2) Method to vary hallway lengths (likely determined before hallway creation) 
 3) Finish making the end room method and logic, for placing the final room (boss) (Custom boss room method?)
@@ -30,7 +32,7 @@ Modular Dungeon Generation
 
 
 ## Aesthetics of a dungeon
-
+<span id="ADun"></span>
 1) Bones/Skeletons
 2) Torches/Candles
 3) Rocks/Rubble
