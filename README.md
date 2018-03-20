@@ -1,13 +1,11 @@
 # Dungeon-Generation
 Modular Dungeon Generation
 
-<a href="#General">General plans</a>
+[General Plans](#General)
+[DunGen](#DunGen)
+[Aesthetics of a dungeon](#ADunGen)
 
-<a href="#DunGen">DunGen Script</a>
-
-<a href="#ADun">Aesthetic of a dungeon</a>
-
-## <span id="General">General plans for game</span>
+## <span name="General">General plans for game</span>
 
 1) Menu (Play (single and multiplayer), Settings, Stats, Exit)
 2) Overworld town before actual dungeon
@@ -21,7 +19,7 @@ Modular Dungeon Generation
 10) One time run items purchasable with coins
 
 
-## <span id="DunGen">Plans for the DungeonGen Script</span>
+## <span name="DunGen">Plans for the DungeonGen Script</span>
 
 1) Method to make custom "Rooms" of varying sizes
 2) Method to vary hallway lengths (likely determined before hallway creation) 
@@ -33,8 +31,7 @@ Modular Dungeon Generation
 8) Figure out how to make clusters (My guess is that is generates a whole dungeon, and when it gets to the last node it'll begin generating a new dungeon entirely from the last node, repeat for x iterations)
 
 
-## Aesthetics of a dungeon
-<span id="ADun"></span>
+## <span name="ADunGen">Aesthetics of a dungeon</span>
 1) Bones/Skeletons
 2) Torches/Candles
 3) Rocks/Rubble
