@@ -2,11 +2,13 @@
 Modular Dungeon Generation
 
 <a href="#General">General plans</a>
+
 <a href="#DunGen">DunGen Script</a>
+
 <a href="#ADun">Aesthetic of a dungeon</a>
 
-## General plans for game
-<span id="General"></span>
+## <span id="General">General plans for game</span>
+
 1) Menu (Play (single and multiplayer), Settings, Stats, Exit)
 2) Overworld town before actual dungeon
 3) General set up for story based gameplay for levels 1-100
@@ -19,8 +21,8 @@ Modular Dungeon Generation
 10) One time run items purchasable with coins
 
 
-## Plans for the DungeonGen Script
-<span id="DunGen"></span>
+## <span id="DunGen">Plans for the DungeonGen Script</span>
+
 1) Method to make custom "Rooms" of varying sizes
 2) Method to vary hallway lengths (likely determined before hallway creation) 
 3) Finish making the end room method and logic, for placing the final room (boss) (Custom boss room method?)
