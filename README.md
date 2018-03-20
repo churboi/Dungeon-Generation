@@ -17,7 +17,7 @@ Modular Dungeon Generation
 
 ## <span name="DunGen">Plans for the DungeonGen Script</span>
 
-<span color="#FF0000">1)</span> Method to make custom "Rooms" of varying sizes
+1) Method to make custom "Rooms" of varying sizes <span color="#FF0000">[]</span>
 2) Method to vary hallway lengths (likely determined before hallway creation) 
 3) Finish making the end room method and logic, for placing the final room (boss) (Custom boss room method?)
 4) Add components to "Rooms" for random dungeon aesthetics and interactives
