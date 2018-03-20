@@ -1,10 +1,6 @@
 # Dungeon-Generation
 Modular Dungeon Generation
 
-[General Plans](#General)
-[DunGen](#DunGen)
-[Aesthetics of a dungeon](#ADunGen)
-
 ## <span name="General">General plans for game</span>
 
 1) Menu (Play (single and multiplayer), Settings, Stats, Exit)
