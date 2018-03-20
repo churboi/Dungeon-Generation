@@ -1,6 +1,7 @@
 # Dungeon-Generation
 Modular Dungeon Generation
-<a href="General">General</a>
+
+<a href="#General">General</a>
 
 ## General plans for game
 <span id="General"></span>
