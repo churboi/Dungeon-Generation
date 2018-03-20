@@ -24,6 +24,7 @@ Modular Dungeon Generation
 5) Add checks so instead of creating dungeons based off of iterations it has a minimum room count based on difficulty
 6) Make some hallways create entrances when intersecting with a room instead of deadend
 7) Puzzle Rooms
+8) Figure out how to make clusters (My guess is that is generates a whole dungeon, and when it gets to the last node it'll begin generating a new dungeon entirely from the last node, repeat for x iterations)
 
 
 ## Aesthetics of a dungeon
@@ -89,3 +90,7 @@ Modular Dungeon Generation
 
 ### [3/19/2018]
 - Adjusted DeadEndFrequencyCorrection to actually work (Changes DE tags to anything else if nodeCount is too low during main DunGen generation phase)
+
+### [3/20/2018]
+- Started "RandomHallway" method which takes in pendingNode to build from and also takes a random length size
+(Most code is from DunGen script so I have to compartmentalize DunGen into smaller methods)
