@@ -93,3 +93,4 @@ Modular Dungeon Generation
 ### [3/20/2018]
 - Started "RandomHallway" method which takes in pendingNode to build from and also takes a random length size
 (Most code is from DunGen script so I have to compartmentalize DunGen into smaller methods)
+- Added a diagonal hallway
