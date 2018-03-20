@@ -51,6 +51,7 @@ public class DungeonGeneration : MonoBehaviour {
         var pendingNodes = new List<Node>(startRoom.GetNodes());
         int nodesLeft = pendingNodes.Count;
 
+        //Main  Section
         for (int iteration = 0; iteration < dungeonSizeIn; iteration++)
         {
             Debug.Log("Iteration: " + iteration);
@@ -100,12 +101,12 @@ public class DungeonGeneration : MonoBehaviour {
                         collisionLoop = true;
                         roomPlacementAttempts++;
                         newTag = GetRandom(pendingNode.roomTags);
-                        if (roomPlacementAttempts > 8)
+                        if (roomPlacementAttempts > 15)
                         {
                             newTag = "WB";
                             //Debug.Log("TAG WB, RPA: " + roomPlacementAttempts);
                             
-                            if (roomPlacementAttempts > 9)
+                            if (roomPlacementAttempts > 16)
                             {
                                 //Debug.Log("DELETING WALL BLOCKER");
                                 collisionLoop = false;
@@ -128,18 +129,17 @@ public class DungeonGeneration : MonoBehaviour {
                  * End loop here
                  */
 
-                newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch));
+                newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch)); //Add new nodes that weren't used into node pool
             }
 
             pendingNodes = newExits;
         }
 
-        /* [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-         * [][][][][][][][][] ADDING DEAD ENDS TO THE LAST EMPTY EXITS [][][][][][][][][][][][][][][]
-         */
         nodesLeft = pendingNodes.Count;
 
-        Debug.Log("Entering dead end placing");
+        //DeadEnd Placing
+        Debug.Log("Entering dead end placing"); 
+
         foreach (var pendingNode in pendingNodes)
         {
             Debug.Log("Nodes Left: " + nodesLeft);
@@ -203,10 +203,11 @@ public class DungeonGeneration : MonoBehaviour {
                     roomCount++;
                     newRoom.name = ("Room: " + roomCount);
                     collisionLoop = false;
-                    nodesLeft--;
+                    
                     //Subtract one from the amount of nodes left to determine when wer're on the last node
                 }
             } while (collisionLoop);
+            nodesLeft--;
             yield return new WaitForSeconds(waitTime*deadEndSlowDown);
         }
         finishedGeneration = true;
@@ -288,9 +289,57 @@ public class DungeonGeneration : MonoBehaviour {
         } while (deadEndFrequencyLoop);
         return newTag;
     }
-
-    private static void RandomHallWay(Node pendingNode)
+     
+    private void RandomHallway(Node pendingNode, int hallSizeIn)
     {
 
+        //Likely total trash
+        /*
+        Debug.Log("HALLWAY METHOD");
+        var newExits = new List<Node>();
+        var newTag = "SH";
+        var collisionLoop = false;
+        var roomPlacementAttempts = 0;
+        var roomCount = 0;
+        do
+        {
+            var newRoomPrefab = GetRandomWithTag(dungeonRooms, newTag);
+            var newRoom = (Room)Instantiate(newRoomPrefab);
+            newRoomNodes = newRoom.GetNodes();
+            nodeToMatch = newRoomNodes.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newRoomNodes);
+            MatchExits(pendingNode, nodeToMatch);
+            if (newRoom.colliders.isCollided())
+            {
+                //Debug.Log(newRoom.name + ", is collided at: " + newRoom.transform.position);
+                if (newRoom != null)
+                {
+                    Destroy(newRoom.gameObject);
+                }
+                collisionLoop = true;
+                roomPlacementAttempts++;
+                if (roomPlacementAttempts > 8)
+                {
+                    newTag = "WB";
+                    //Debug.Log("TAG WB, RPA: " + roomPlacementAttempts);
+
+                    if (roomPlacementAttempts > 9)
+                    {
+                        //Debug.Log("DELETING WALL BLOCKER");
+                        collisionLoop = false;
+                        roomPlacementAttempts = 0;
+                        Destroy(newRoom.gameObject);
+                    }
+                }
+            }
+            else
+            {
+                roomCount++;
+                newRoom.name = ("Hall: " + roomCount);
+                collisionLoop = false;
+                newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch));
+                pendingNode = newExits[0];
+            }
+        } while (collisionLoop);
+        */
     }
 }

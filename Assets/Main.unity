@@ -331,11 +331,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
-        type: 2}
-      propertyPath: dungeonRooms.Array.size
-      value: 42
-      objectReference: {fileID: 0}
     - target: {fileID: 4706141986802702, guid: bdcde32a8f228054aad88d32feb0255e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -368,17 +363,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
-        type: 2}
-      propertyPath: dungeonSize
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
-        type: 2}
-      propertyPath: dungeonRooms.Array.data[41]
-      value: 
-      objectReference: {fileID: 114452109574705412, guid: d69527554d09a454aa626445484398b0,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bdcde32a8f228054aad88d32feb0255e, type: 2}
   m_IsPrefabParent: 0

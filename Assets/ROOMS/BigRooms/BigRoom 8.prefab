@@ -6844,6 +6844,8 @@ MonoBehaviour:
   - R
   - H
   - DE
+  - H
+  - H
   IsDefault: 0
 --- !u!114 &114228751184119424
 MonoBehaviour:
@@ -6872,6 +6874,8 @@ MonoBehaviour:
   - R
   - H
   - DE
+  - H
+  - H
   IsDefault: 0
 --- !u!114 &114671416639089508
 MonoBehaviour:
@@ -6888,6 +6892,8 @@ MonoBehaviour:
   - R
   - H
   - DE
+  - H
+  - H
   IsDefault: 0
 --- !u!114 &114948057889117362
 MonoBehaviour:

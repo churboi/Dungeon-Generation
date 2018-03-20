@@ -3308,6 +3308,8 @@ MonoBehaviour:
   - R
   - H
   - DE
+  - H
+  - H
   IsDefault: 0
 --- !u!114 &114789293874325714
 MonoBehaviour:
@@ -3324,6 +3326,8 @@ MonoBehaviour:
   - R
   - H
   - DE
+  - H
+  - H
   IsDefault: 0
 --- !u!114 &114809061424320560
 MonoBehaviour:
@@ -3340,4 +3344,6 @@ MonoBehaviour:
   - R
   - H
   - DE
+  - H
+  - H
   IsDefault: 0
