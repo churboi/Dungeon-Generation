@@ -1,8 +1,9 @@
 # Dungeon-Generation
 Modular Dungeon Generation
+<a href="General">General</a>
 
 ## General plans for game
-
+<span id="General"></span>
 1) Menu (Play (single and multiplayer), Settings, Stats, Exit)
 2) Overworld town before actual dungeon
 3) General set up for story based gameplay for levels 1-100
