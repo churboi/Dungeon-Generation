@@ -1,7 +1,7 @@
 # Dungeon-Generation
 Modular Dungeon Generation
 
-## <span name="General">General plans for game</span>
+## General plans for game5
 
 1) Menu (Play (single and multiplayer), Settings, Stats, Exit)
 2) Overworld town before actual dungeon
@@ -15,7 +15,7 @@ Modular Dungeon Generation
 10) One time run items purchasable with coins
 
 
-## <span name="DunGen">Plans for the DungeonGen Script</span>
+## Plans for the DungeonGen Script
 
 1) Method to make custom "Rooms" of varying sizes
 2) Method to vary hallway lengths (likely determined before hallway creation) 
@@ -27,7 +27,7 @@ Modular Dungeon Generation
 8) Figure out how to make clusters (My guess is that it generates a whole dungeon, and when it gets to the last node it'll begin generating a new dungeon entirely from the last node, repeat for x iterations)
 
 
-## <span name="ADunGen">Aesthetics of a dungeon</span>
+## Aesthetics of a dungeon
 1) Bones/Skeletons
 2) Torches/Candles
 3) Rocks/Rubble
@@ -98,3 +98,6 @@ Modular Dungeon Generation
 
 ### [3/21/2018]
 - Fixed main DunGen by cleaning up the deadend placement code, about 80 useless lines of code corrected by if checks.
+- Bug fix where dungeon wouldn't generate multiple wall blockers in the same grid space 
+- Began adding "Clusters" in the DunGen script, I plan to have seperated by a long hallways
+- Random dungeon prefabs will be added and removed from "Test Dungeons" to log dungeon creation milestones
