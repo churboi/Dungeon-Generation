@@ -99,5 +99,5 @@ Modular Dungeon Generation
 ### [3/21/2018]
 - Fixed main DunGen by cleaning up the deadend placement code, about 80 useless lines of code corrected by if checks.
 - Bug fix where dungeon wouldn't generate multiple wall blockers in the same grid space 
-- Began adding "Clusters" in the DunGen script, I plan to have seperated by a long hallways
+- Began adding "Clusters" in the DunGen script, I plan to have seperated by a long hallways (cannot find out how to add nodes to list of new exits)
 - Random dungeon prefabs will be added and removed from "Test Dungeons" to log dungeon creation milestones
