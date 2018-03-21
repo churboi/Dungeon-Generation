@@ -7,6 +7,7 @@ public class DungeonGeneration : MonoBehaviour {
 
     [Header("Dungeon Variables")]
     public int dungeonSize;
+    public int clusterSize;
 
     [Header("Dungeon Rooms")]
     public Room[] dungeonRooms;
@@ -20,7 +21,9 @@ public class DungeonGeneration : MonoBehaviour {
 
     private Node[] newRoomNodes;
     private Node nodeToMatch;
+    private Node clusterNode;
     private bool finishedGeneration = false;
+    private bool clusterStich = false;
 
     public bool FinishedGen
     {
@@ -29,10 +32,10 @@ public class DungeonGeneration : MonoBehaviour {
 
     private void Start()
     {
-        StartCoroutine(DungeonGen(dungeonSize));
+        StartCoroutine(DungeonGen(dungeonSize, clusterSize));
     }
 
-    IEnumerator DungeonGen(int dungeonSizeIn)
+    IEnumerator DungeonGen(int dungeonSizeIn, int clusterCount)
     {
         var roomCount = 0;
         var roomsToUse = dungeonRooms;
@@ -40,106 +43,129 @@ public class DungeonGeneration : MonoBehaviour {
         {
             roomsToUse = testRooms;
         }
-        var startRoom = (Room)Instantiate(dungeonEntrance, transform.position, transform.rotation);
-        startRoom.name = ("Room: " + roomCount);
-        startRoom.tag = "startRoom";
 
-        yield return new WaitForSeconds(waitTime);
+        Debug.Log("Cluster Count: " + clusterCount + ", Dungeon Size: " + dungeonSize);
 
-        var pendingNodes = new List<Node>(startRoom.GetNodes());
-        int nodesLeft = pendingNodes.Count;
-
-        //Main  Section
-        for (int iteration = 0; iteration < dungeonSizeIn; iteration++)
+        for (int clusterIteration = 0; clusterIteration < clusterCount; clusterIteration++)
         {
-            //Debug.Log("Iteration: " + iteration);
-            var newExits = new List<Node>();
-            nodesLeft = pendingNodes.Count;
+            var startRoom = dungeonEntrance;
+            var pendingNodes = new List<Node>();
 
-            foreach (var pendingNode in pendingNodes)
+            if (clusterIteration == 0 )
             {
-                var newTag = GetRandom(pendingNode.roomTags);
-                if (iteration == (dungeonSizeIn-1))
+                Instantiate(startRoom, transform.position, transform.rotation);
+                startRoom.name = ("Room: " + roomCount);
+                startRoom.tag = "startRoom";
+                pendingNodes = new List<Node>(startRoom.GetNodes());
+            }
+            /*
+            else
+            {
+                pendingNodes.Clear();
+                pendingNodes.Add(clusterNode);
+                //Debug.Log("Else: pendingNodes.Add(clusterNode)");
+            }
+            */
+            int nodesLeft = pendingNodes.Count;
+
+            //Main  Section
+            for (int iteration = 0; iteration < dungeonSizeIn; iteration++)
+            {
+                //Debug.Log("Iteration: " + iteration);
+                var newExits = new List<Node>();
+                nodesLeft = pendingNodes.Count;
+
+                foreach (var pendingNode in pendingNodes)
                 {
-                    newTag = "DE";
-                }
-                Debug.Log("iteration: " + (iteration+1) + ", Nodes left: " + nodesLeft + ", Tag: " + newTag);
-                //Debug.Log("[@] [@] Pending Nodes Left: " + pendingNodes.Count + " [@] [@]");
-
-                //Collision loop actually starts here
-                var collisionLoop = false;
-                var roomPlacementAttempts = 0;
-
-                do
-                {
-                    //Don't place dead ends when there are few open nodes
-                    //Make this occur less often
-                    if (!(iteration == (dungeonSizeIn - 1)))
+                    var newTag = GetRandom(pendingNode.roomTags);
+                    if (iteration == (dungeonSizeIn - 1))
                     {
-                        newTag = DeadEndFreqencyCorrection(newTag, nodesLeft, pendingNode);
-                    }
-
-                    var newRoomPrefab = GetRandomWithTag(roomsToUse, newTag);
-
-                    var newRoom = (Room)Instantiate(newRoomPrefab);
-                    yield return new WaitForSeconds(waitTime);
-
-                    //Debug.Log("New Room Created: " + newRoom.name);
-
-                    newRoomNodes = newRoom.GetNodes();
-
-                    nodeToMatch = newRoomNodes.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newRoomNodes);
-
-                    MatchExits(pendingNode, nodeToMatch);
-
-                    yield return new WaitForSeconds(waitTime / 2f);
-
-                    if (newRoom.colliders.isCollided())
-                    {
-                        if (newRoom != null)
+                        newTag = "DE";
+                        /*
+                        if(nodesLeft == 1)
                         {
-                            Destroy(newRoom.gameObject);
+                            clusterNode = pendingNode;
+                            //Debug.Log("Added node to clusterNode");
+                            clusterStich = true;
                         }
-                        collisionLoop = true;
-                        roomPlacementAttempts++;
+                        */
+                    }
+                    Debug.Log("Cluster Iteration: " + clusterIteration + ", Iteration: " + (iteration + 1) + ", Nodes left: " + nodesLeft + ", Tag: " + newTag);
+                    var collisionLoop = false;
+                    var roomPlacementAttempts = 0;
+                    yield return new WaitForSeconds(waitTime);
+                    
+                    do
+                    {
+                        //Make this occur less often
                         if (!(iteration == (dungeonSizeIn - 1)))
                         {
-                            newTag = GetRandom(pendingNode.roomTags);
+                            newTag = DeadEndFreqencyCorrection(newTag, nodesLeft, pendingNode);
+                        }
+
+                        var newRoomPrefab = GetRandomWithTag(roomsToUse, newTag);
+
+                        /*
+                        if(!(clusterNode == null) && clusterStich)
+                        {
+                            newRoomPrefab = GetRandomWithTag(roomsToUse, "LH");
+                            Debug.Log("Grabbing Long Hall for last node");
+                            clusterStich = false;
+                        }
+                        */
+
+                        var newRoom = (Room)Instantiate(newRoomPrefab);
+                        yield return new WaitForSeconds(waitTime);
+
+                        newRoomNodes = newRoom.GetNodes();
+
+                        nodeToMatch = newRoomNodes.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newRoomNodes);
+
+                        MatchExits(pendingNode, nodeToMatch);
+
+                        yield return new WaitForSeconds(waitTime / 2f);
+
+                        if (newRoom.colliders.isCollided())
+                        {
+                            if (newRoom != null)
+                            {
+                                Destroy(newRoom.gameObject);
+                            }
+                            collisionLoop = true;
+                            roomPlacementAttempts++;
+                            if (!(iteration == (dungeonSizeIn - 1)))
+                            {
+                                newTag = GetRandom(pendingNode.roomTags);
+                            }
+                            if (roomPlacementAttempts > 15)
+                            {
+                                newTag = "WB";
+                                //Debug.Log("TAG WB, RPA: " + roomPlacementAttempts);
+                                if (roomPlacementAttempts > 16)
+                                {
+                                    //Debug.Log("DELETING WALL BLOCKER");
+                                    collisionLoop = false;
+                                    roomPlacementAttempts = 0;
+                                    Destroy(newRoom.gameObject);
+                                }
+                            }
                         }
                         else
                         {
-                            Debug.Log("New Tag not generated");
+                            roomCount++;
+                            newRoom.name = ("Room: " + roomCount);
+                            collisionLoop = false;
+                            roomPlacementAttempts = 0;
                         }
+                    } while (collisionLoop);
+                    nodesLeft--;
 
-                        if (roomPlacementAttempts > 15)
-                        {
-                            newTag = "WB";
-                            //Debug.Log("TAG WB, RPA: " + roomPlacementAttempts);
-                            if (roomPlacementAttempts > 16)
-                            {
-                                //Debug.Log("DELETING WALL BLOCKER");
-                                collisionLoop = false;
-                                roomPlacementAttempts = 0;
-                                Destroy(newRoom.gameObject);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        roomCount++;
-                        newRoom.name = ("Room: " + roomCount);
-                        collisionLoop = false;
-                        roomPlacementAttempts = 0;
-                        //Debug.Log(newRoom.name + " Placed at: " + newRoom.transform.position);
-                        nodesLeft--;
-                    }
-                } while (collisionLoop);
-                newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch)); //Add new nodes that weren't used into node pool
+                    newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch)); //Add new nodes that weren't used into node pool
+                }
+                pendingNodes = newExits;
             }
-            pendingNodes = newExits;
+            Debug.Log("New Cluster");
         }
-        nodesLeft = pendingNodes.Count;
-        finishedGeneration = true;
         Debug.Log("Finished Gen");
         yield return null;
     }
@@ -147,29 +173,23 @@ public class DungeonGeneration : MonoBehaviour {
     private static TItem GetRandom<TItem>(TItem[] array)
     {
         var randomItem = array[Random.Range(0, array.Length)];
-
         return randomItem;
     }
 
     private static Room GetRandomWithTag(IEnumerable<Room> modules, string tagToMatch)
     {
-
-
         var matchingRoom = modules.Where(m => m.roomTags.Contains(tagToMatch)).ToArray();
-
         //returns random "Module" room from array of rooms with matching tag in "matchingModule"
         return GetRandom(matchingRoom);
     }
 
     private void MatchExits(Node oldExit, Node newExit)
     {
-
         //grabs new room as "newModule" by taking in the ModuleConnector inside the new room and finding it's parent
         var newNode = newExit.transform.parent;
 
         //Creates a Vector3 local variable that is the opposite of the "oldExit"'s forward facing direction 
         var forwardVectorToMatch = -oldExit.transform.forward;
-
 
         var correctiveRotation = Azimuth(forwardVectorToMatch) - Azimuth(newExit.transform.forward);
 
@@ -178,7 +198,6 @@ public class DungeonGeneration : MonoBehaviour {
 
         //grabs the oldExit's position and subtracts the newExits position to get the corrct position
         var correctiveTranslation = oldExit.transform.position - newExit.transform.position;
-
 
         newNode.transform.position += correctiveTranslation;
     }
@@ -207,7 +226,7 @@ public class DungeonGeneration : MonoBehaviour {
         {
             if (newTag == "DE")
             {
-                if (nodeCount <= 3)
+                if (nodeCount <= 6)
                 {
                     newTag = GetRandom(pendingNode.roomTags);
                     Debug.Log("DeadEnd Frequency Correction: tagIn; " + tagIn + ", nodeCount; " + nodeCount + ", NewTag: " + newTag);
@@ -221,54 +240,6 @@ public class DungeonGeneration : MonoBehaviour {
      
     private void RandomHallway(Node pendingNode, int hallSizeIn)
     {
-
-        //Likely total trash
-        /*
-        Debug.Log("HALLWAY METHOD");
-        var newExits = new List<Node>();
-        var newTag = "SH";
-        var collisionLoop = false;
-        var roomPlacementAttempts = 0;
-        var roomCount = 0;
-        do
-        {
-            var newRoomPrefab = GetRandomWithTag(dungeonRooms, newTag);
-            var newRoom = (Room)Instantiate(newRoomPrefab);
-            newRoomNodes = newRoom.GetNodes();
-            nodeToMatch = newRoomNodes.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newRoomNodes);
-            MatchExits(pendingNode, nodeToMatch);
-            if (newRoom.colliders.isCollided())
-            {
-                //Debug.Log(newRoom.name + ", is collided at: " + newRoom.transform.position);
-                if (newRoom != null)
-                {
-                    Destroy(newRoom.gameObject);
-                }
-                collisionLoop = true;
-                roomPlacementAttempts++;
-                if (roomPlacementAttempts > 8)
-                {
-                    newTag = "WB";
-                    //Debug.Log("TAG WB, RPA: " + roomPlacementAttempts);
-
-                    if (roomPlacementAttempts > 9)
-                    {
-                        //Debug.Log("DELETING WALL BLOCKER");
-                        collisionLoop = false;
-                        roomPlacementAttempts = 0;
-                        Destroy(newRoom.gameObject);
-                    }
-                }
-            }
-            else
-            {
-                roomCount++;
-                newRoom.name = ("Hall: " + roomCount);
-                collisionLoop = false;
-                newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch));
-                pendingNode = newExits[0];
-            }
-        } while (collisionLoop);
-        */
+        
     }
 }

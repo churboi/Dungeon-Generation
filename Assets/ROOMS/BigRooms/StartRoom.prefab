@@ -1110,7 +1110,7 @@ GameObject:
   - component: {fileID: 114011023919949798}
   m_Layer: 0
   m_Name: StartRoom
-  m_TagString: Untagged
+  m_TagString: startRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
