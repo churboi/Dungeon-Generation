@@ -95,3 +95,6 @@ Modular Dungeon Generation
 (Most code is from DunGen script so I have to compartmentalize DunGen into smaller methods)
 - Added a diagonal hallway
 - Increased frequency of hallways in big rooms
+
+### [3/21/2018]
+- Fixed main DunGen by cleaning up the deadend placement code, about 80 useless lines of code corrected by if checks.
