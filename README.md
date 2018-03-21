@@ -1,7 +1,7 @@
 # Dungeon-Generation
 Modular Dungeon Generation
 
-## General plans for game5
+## General plans for game
 
 1) Menu (Play (single and multiplayer), Settings, Stats, Exit)
 2) Overworld town before actual dungeon
