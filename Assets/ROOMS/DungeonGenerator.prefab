@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03020267dab3700469741180c0fff9a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeonSize: 9
+  dungeonSize: 3
   clusterSize: 1
   dungeonRooms:
   - {fileID: 114767461602263492, guid: 5010b9b422ff0f14fa3c6f01e4f21b0a, type: 2}

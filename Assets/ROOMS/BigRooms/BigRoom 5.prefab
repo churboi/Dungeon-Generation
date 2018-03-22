@@ -4955,6 +4955,7 @@ MonoBehaviour:
   - {fileID: 114865284826530266}
   roomTags:
   - R
+  - CF
   colliders: {fileID: 114760636689832938}
 --- !u!114 &114760636689832938
 MonoBehaviour:

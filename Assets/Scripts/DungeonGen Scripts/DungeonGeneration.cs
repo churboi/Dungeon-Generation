@@ -15,7 +15,6 @@ public class DungeonGeneration : MonoBehaviour {
 
     [Header("Private Build Timers")]
     public float waitTime;
-    public float deadEndSlowDown;
     public bool testMode = false;
     public Room[] testRooms;
 
@@ -48,7 +47,7 @@ public class DungeonGeneration : MonoBehaviour {
 
         for (int clusterIteration = 0; clusterIteration < clusterCount; clusterIteration++)
         {
-            Debug.Log("<size=16>New Cluster</size>"); // Debugging
+            Debug.Log("<size=18><b>New Cluster</b></size>"); // Debugging
             var startRoom = dungeonEntrance;
             var pendingNodes = new List<Node>();
 
@@ -59,14 +58,17 @@ public class DungeonGeneration : MonoBehaviour {
                 startRoom.tag = "startRoom";
                 pendingNodes = new List<Node>(startRoom.GetNodes());
             }
-            /*
+
             else
             {
                 pendingNodes.Clear();
-                pendingNodes.Add(clusterNode);
-                //Debug.Log("Else: pendingNodes.Add(clusterNode)");
+                if(clusterNode != null)
+                {
+                    pendingNodes.Add(clusterNode);
+                    Debug.Log("<size=18>Cluster Beginning with Node: " + clusterNode.name + "</size>");
+                }
             }
-            */
+
             int nodesLeft = pendingNodes.Count;
 
             //Main  Section
@@ -82,14 +84,13 @@ public class DungeonGeneration : MonoBehaviour {
                     if (iteration == (dungeonSizeIn - 1))
                     {
                         newTag = "DE";
-                        /*
-                        if(nodesLeft == 1)
+                        if ((nodesLeft == 1) && (clusterIteration < clusterCount))
                         {
                             clusterNode = pendingNode;
-                            //Debug.Log("Added node to clusterNode");
+                            Debug.Log("<size=16>Last Node of this cluster: <color=red>" + clusterNode.name + "</color></size>");
                             clusterStich = true;
+                            newTag = "LH";
                         }
-                        */
                     }
                     
                     var collisionLoop = false;
@@ -98,27 +99,24 @@ public class DungeonGeneration : MonoBehaviour {
                     
                     do
                     {
+                        if ((clusterIteration > 0) && (pendingNodes.Count == 1))
+                        {
+                            newTag = "CF";
+                        }
                         //Make this occur less often
                         if (!(iteration == (dungeonSizeIn - 1)))
                         {
                             newTag = DeadEndFreqencyCorrection(newTag, nodesLeft, pendingNode);
                         }
-
+                        
                         var newRoomPrefab = GetRandomWithTag(roomsToUse, newTag);
 
-                        /*
-                        if(!(clusterNode == null) && clusterStich)
-                        {
-                            newRoomPrefab = GetRandomWithTag(roomsToUse, "LH");
-                            Debug.Log("Grabbing Long Hall for last node");
-                            clusterStich = false;
-                        }
-                        */
 
                         var newRoom = (Room)Instantiate(newRoomPrefab);
                         yield return new WaitForSeconds(waitTime);
 
                         newRoomNodes = newRoom.GetNodes();
+
 
                         nodeToMatch = newRoomNodes.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newRoomNodes);
 
@@ -174,6 +172,11 @@ public class DungeonGeneration : MonoBehaviour {
                     Debug.Log("New Exits: (<color=purple>" + newExits.Count + "</color>): " + (ArrayToString<Node>(newExits.ToArray())));
                 }
                 pendingNodes = newExits;
+
+                if (iteration == (dungeonSizeIn - 1) && (pendingNodes.Count == 1))
+                {
+                    clusterNode = pendingNodes[0];
+                }
 
                 Debug.Log("<color=navy>Pending Nodes: </color>(<color=purple>" + pendingNodes.Count + "</color>): " + (ArrayToString<Node>(pendingNodes.ToArray())));
             }
