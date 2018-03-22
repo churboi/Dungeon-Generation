@@ -44,10 +44,11 @@ public class DungeonGeneration : MonoBehaviour {
             roomsToUse = testRooms;
         }
 
-        Debug.Log("Cluster Count: " + clusterCount + ", Dungeon Size: " + dungeonSize);
+        Debug.Log("<b>Cluster Count: " + clusterCount + ", Dungeon Size: " + dungeonSize +"</b>");
 
         for (int clusterIteration = 0; clusterIteration < clusterCount; clusterIteration++)
         {
+            Debug.Log("<size=16>New Cluster</size>"); // Debugging
             var startRoom = dungeonEntrance;
             var pendingNodes = new List<Node>();
 
@@ -90,7 +91,7 @@ public class DungeonGeneration : MonoBehaviour {
                         }
                         */
                     }
-                    Debug.Log("Cluster Iteration: " + clusterIteration + ", Iteration: " + (iteration + 1) + ", Nodes left: " + nodesLeft + ", Tag: " + newTag);
+                    
                     var collisionLoop = false;
                     var roomPlacementAttempts = 0;
                     yield return new WaitForSeconds(waitTime);
@@ -143,7 +144,7 @@ public class DungeonGeneration : MonoBehaviour {
                                 //Debug.Log("TAG WB, RPA: " + roomPlacementAttempts);
                                 if (roomPlacementAttempts > 16)
                                 {
-                                    //Debug.Log("DELETING WALL BLOCKER");
+                                    //Debug.Log("<color=red><size=16>DELETING WALL BLOCKER</size></color>, nodes left: <color=purple>" + (nodesLeft) + "</color>"); Debugging
                                     collisionLoop = false;
                                     roomPlacementAttempts = 0;
                                     Destroy(newRoom.gameObject);
@@ -152,21 +153,33 @@ public class DungeonGeneration : MonoBehaviour {
                         }
                         else
                         {
+                            var tempName = newRoom.name; // Debugging
+                            
                             roomCount++;
                             newRoom.name = ("Room: " + roomCount);
+
+                            Debug.Log("<b>Cluster Iteration:</b> " + clusterIteration + ", Iteration: " + (iteration + 1) + ", <color=red>Nodes left:</color> <color=purple>" + nodesLeft + "</color>, Tag: " + newTag);
+                            Debug.Log("New Room Placed:<color=blue> " + tempName + "</color>, as: <color=blue>" + newRoom.name + "</color>, Attached to: <color=olive>" + pendingNode.transform.parent.name + "</color>", newRoom); // Debugging
+                            newRoom.NameNodes(); // Debugging
+
                             collisionLoop = false;
                             roomPlacementAttempts = 0;
                         }
                     } while (collisionLoop);
+                    Debug.Log("<size=14><color=red>-1 Node</color></size>"); // Debugging
                     nodesLeft--;
 
                     newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch)); //Add new nodes that weren't used into node pool
+
+                    Debug.Log("New Exits: (<color=purple>" + newExits.Count + "</color>): " + (ArrayToString<Node>(newExits.ToArray())));
                 }
                 pendingNodes = newExits;
+
+                Debug.Log("<color=navy>Pending Nodes: </color>(<color=purple>" + pendingNodes.Count + "</color>): " + (ArrayToString<Node>(pendingNodes.ToArray())));
             }
-            Debug.Log("New Cluster");
+            
         }
-        Debug.Log("Finished Gen");
+        Debug.Log("<b><size=16>Finished Gen</size></b>"); // Debugging
         yield return null;
     }
 
@@ -229,7 +242,7 @@ public class DungeonGeneration : MonoBehaviour {
                 if (nodeCount <= 6)
                 {
                     newTag = GetRandom(pendingNode.roomTags);
-                    Debug.Log("DeadEnd Frequency Correction: tagIn; " + tagIn + ", nodeCount; " + nodeCount + ", NewTag: " + newTag);
+                    //Debug.Log("DeadEnd Frequency Correction: tagIn; " + tagIn + ", nodeCount; " + nodeCount + ", NewTag: " + newTag);
                     deadEndFrequencyLoop = true;
                 }
             }

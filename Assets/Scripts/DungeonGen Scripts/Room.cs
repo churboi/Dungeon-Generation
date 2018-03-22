@@ -15,6 +15,13 @@ public class Room : MonoBehaviour {
     {
         return GetComponentsInChildren<Node>();
     }
+    public void NameNodes()
+    {
+        for(int i = 0; i < nodes.Length; i++)
+        {
+            nodes[i].name = (this.name + "'s node: " + (i+1)); 
+        }
+    }
 
 
 
