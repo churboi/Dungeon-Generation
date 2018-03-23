@@ -19,12 +19,12 @@ Modular Dungeon Generation
 
 1) Method to make custom "Rooms" of varying sizes
 2) Method to vary hallway lengths (likely determined before hallway creation) 
-~~3)~~ Finish making the end room method and logic, for placing the final room (boss) (Custom boss room method?) [x]
+3) ~~Finish making the end room method and logic~~ for placing the final room (boss) (Custom boss room method?)
 4) Add components to "Rooms" for random dungeon aesthetics and interactives
 5) Add checks so instead of creating dungeons based off of iterations it has a minimum room count based on difficulty
 6) Make some hallways create entrances when intersecting with a room instead of deadend
 7) Puzzle Rooms
-~~8)~~ Figure out how to make clusters (My guess is that it generates a whole dungeon, and when it gets to the last node it'll begin generating a new dungeon entirely from the last node, repeat for x iterations) [x]
+8) ~~Figure out how to make clusters~~ (My guess is that it generates a whole dungeon, and when it gets to the last node it'll begin generating a new dungeon entirely from the last node, repeat for x iterations)
 
 
 ## Aesthetics of a dungeon
