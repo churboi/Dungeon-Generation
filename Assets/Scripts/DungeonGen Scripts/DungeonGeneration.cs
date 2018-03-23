@@ -13,10 +13,13 @@ public class DungeonGeneration : MonoBehaviour {
     public Room[] dungeonRooms;
     public Room dungeonEntrance;
 
-    [Header("Private Build Timers")]
-    public float waitTime;
+    [Header("Testing Variables")]
     public bool testMode = false;
     public Room[] testRooms;
+
+    [Header("Debugging & Console")]
+    public float waitTime;
+    public bool debugBuildMessages;
 
     private Node[] newRoomNodes;
     private Node nodeToMatch;
@@ -41,12 +44,18 @@ public class DungeonGeneration : MonoBehaviour {
         {
             roomsToUse = testRooms;
         }
-
-        Debug.Log("<b>Cluster Count: " + clusterCount + ", Dungeon Size: " + dungeonSize +"</b>");
+        if (debugBuildMessages)
+        {
+            Debug.Log("<b>Cluster Count: " + clusterCount + ", Dungeon Size: " + dungeonSize + "</b>");
+        }
 
         for (int clusterIteration = 0; clusterIteration < clusterCount; clusterIteration++)
         {
-            Debug.Log("<size=18><b>New Cluster</b></size>"); // Debugging
+            if(debugBuildMessages)
+            {
+                Debug.Log("<size=18><b>New Cluster</b></size>"); // Debugging
+            }
+
             var startRoom = dungeonEntrance;
             var pendingNodes = new List<Node>();
 
@@ -64,7 +73,10 @@ public class DungeonGeneration : MonoBehaviour {
                 if(clusterNode != null)
                 {
                     pendingNodes.Add(clusterNode);
-                    Debug.Log("<size=18>Cluster Beginning with Node: " + clusterNode.name + "</size>");
+                    if (debugBuildMessages)
+                    {
+                        Debug.Log("<size=18>Cluster Beginning with Node: " + clusterNode.name + "</size>");
+                    }
                 }
             }
 
@@ -73,7 +85,6 @@ public class DungeonGeneration : MonoBehaviour {
             //Main  Section
             for (int iteration = 0; iteration < dungeonSizeIn; iteration++)
             {
-                //Debug.Log("Iteration: " + iteration);
                 var newExits = new List<Node>();
                 nodesLeft = pendingNodes.Count;
 
@@ -86,7 +97,6 @@ public class DungeonGeneration : MonoBehaviour {
                     if (iteration == (dungeonSizeIn - 1)) //If last iteration
                     {
                         newTag = "DE";
-                        //if ((nodesLeft == 1) && (clusterIteration < clusterCount))
                         if ((placingLH) && (clusterIteration < clusterCount-1))
                         {
                             newTag = "LH";
@@ -95,7 +105,6 @@ public class DungeonGeneration : MonoBehaviour {
                     
                     var collisionLoop = false;
                     var roomPlacementAttempts = 0;
-                    yield return new WaitForSeconds(waitTime);
                     
                     do
                     {
@@ -113,7 +122,8 @@ public class DungeonGeneration : MonoBehaviour {
 
 
                         var newRoom = (Room)Instantiate(newRoomPrefab);
-                        yield return new WaitForSeconds(waitTime);
+
+                        //yield return new WaitForSeconds(waitTime);
 
                         newRoomNodes = newRoom.GetNodes();
 
@@ -122,7 +132,7 @@ public class DungeonGeneration : MonoBehaviour {
 
                         MatchExits(pendingNode, nodeToMatch);
 
-                        yield return new WaitForSeconds(waitTime / 2f);
+                        yield return new WaitForSeconds(waitTime);
 
                         if (newRoom.colliders.isCollided())
                         {
@@ -139,10 +149,13 @@ public class DungeonGeneration : MonoBehaviour {
                             if (roomPlacementAttempts > 15)
                             {
                                 newTag = "WB";
-                                //Debug.Log("TAG WB, RPA: " + roomPlacementAttempts);
+                                
                                 if (roomPlacementAttempts > 16)
                                 {
-                                    //Debug.Log("<color=red><size=16>DELETING WALL BLOCKER</size></color>, nodes left: <color=purple>" + (nodesLeft) + "</color>"); //Debugging
+                                    if (debugBuildMessages)
+                                    {
+                                        Debug.Log("<color=red><size=16>DELETING WALL BLOCKER</size></color>, nodes left: <color=purple>" + (nodesLeft) + "</color>"); //Debugging
+                                    }
                                     collisionLoop = false;
                                     roomPlacementAttempts = 0;
                                     Destroy(newRoom.gameObject);
@@ -156,27 +169,39 @@ public class DungeonGeneration : MonoBehaviour {
                             roomCount++;
                             newRoom.name = ("Room: " + roomCount);
 
-                            Debug.Log("<b>Cluster Iteration:</b> " + clusterIteration + ", Iteration: " + (iteration + 1) + ", <color=red>Nodes left:</color> <color=purple>" + nodesLeft + "</color>, Tag: " + newTag);
-                            Debug.Log("New Room Placed:<color=blue> " + tempName + "</color>, as: <color=blue>" + newRoom.name + "</color>, Attached to: <color=olive>" + pendingNode.transform.parent.name + "</color>", newRoom); // Debugging
-                            newRoom.NameNodes(); // Debugging
+                            if (debugBuildMessages)
+                            {
+                                Debug.Log("<b>Cluster Iteration:</b> " + clusterIteration + ", Iteration: " + (iteration + 1) + ", <color=red>Nodes left:</color> <color=purple>" + nodesLeft + "</color>, Tag: " + newTag);
+                                Debug.Log("New Room Placed:<color=blue> " + tempName + "</color>, as: <color=blue>" + newRoom.name + "</color>, Attached to: <color=olive>" + pendingNode.transform.parent.name + "</color>", newRoom); // Debugging
+                                newRoom.NameNodes(); // Debugging
+                            }
 
                             if(newTag == "LH")
                             {
                                 placingLH = false;
                                 clusterNode = pendingNode;
-                                Debug.Log("<size=16>Cluster Node: <color=red>" + clusterNode.name + "</color></size>");
+                                if (debugBuildMessages)
+                                {
+                                    Debug.Log("<size=16>Cluster Node: <color=red>" + clusterNode.name + "</color></size>");
+                                }
                             }
 
                             collisionLoop = false;
                             roomPlacementAttempts = 0;
                         }
                     } while (collisionLoop);
-                    Debug.Log("<size=14><color=red>-1 Node</color></size>"); // Debugging
+                    if (debugBuildMessages)
+                    {
+                        Debug.Log("<size=14><color=red>-1 Node</color></size>"); // Debugging
+                    }
                     nodesLeft--;
 
                     newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch)); //Add new nodes that weren't used into node pool
 
-                    //Debug.Log("New Exits: (<color=purple>" + newExits.Count + "</color>): " + (ArrayToString<Node>(newExits.ToArray()))); // Debugging
+                    if (debugBuildMessages)
+                    {
+                        Debug.Log("New Exits: (<color=purple>" + newExits.Count + "</color>): " + (ArrayToString<Node>(newExits.ToArray()))); // Debugging
+                    }
                 }
                 pendingNodes = newExits;
 
@@ -185,7 +210,10 @@ public class DungeonGeneration : MonoBehaviour {
                     clusterNode = pendingNodes[0];
                 }
 
-                Debug.Log("<color=navy>Pending Nodes: </color>(<color=purple>" + pendingNodes.Count + "</color>): " + (ArrayToString<Node>(pendingNodes.ToArray())));
+                if (debugBuildMessages)
+                {
+                    Debug.Log("<color=navy>Pending Nodes: </color>(<color=purple>" + pendingNodes.Count + "</color>): " + (ArrayToString<Node>(pendingNodes.ToArray())));
+                }
             }
             
         }
@@ -202,6 +230,7 @@ public class DungeonGeneration : MonoBehaviour {
     private static Room GetRandomWithTag(IEnumerable<Room> modules, string tagToMatch)
     {
         var matchingRoom = modules.Where(m => m.roomTags.Contains(tagToMatch)).ToArray();
+
         //returns random "Module" room from array of rooms with matching tag in "matchingModule"
         return GetRandom(matchingRoom);
     }
@@ -261,7 +290,7 @@ public class DungeonGeneration : MonoBehaviour {
         return newTag;
     }
      
-    private void RandomHallway(Node pendingNodeIn, int hallSizeIn)
+    private Node RandomHallway(Node pendingNodeIn, int hallSizeIn)
     {
         var newTag = "SH";
         var oldNode = pendingNodeIn;
@@ -284,11 +313,12 @@ public class DungeonGeneration : MonoBehaviour {
                 if (newRoom != null)
                 {
                     Destroy(newRoom.gameObject);
-                    return;
+                    return oldNode;
                 }
             }
             newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch));
             oldNode = newExits[0];
         }
+        return oldNode;
     }
 }
