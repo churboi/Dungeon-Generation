@@ -367,13 +367,8 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
         type: 2}
-      propertyPath: clusterSize
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
-        type: 2}
       propertyPath: dungeonSize
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bdcde32a8f228054aad88d32feb0255e, type: 2}

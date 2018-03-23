@@ -22,7 +22,6 @@ public class DungeonGeneration : MonoBehaviour {
     private Node nodeToMatch;
     private Node clusterNode;
     private bool finishedGeneration = false;
-    private bool clusterStich = false;
 
     public bool FinishedGen
     {
@@ -78,17 +77,18 @@ public class DungeonGeneration : MonoBehaviour {
                 var newExits = new List<Node>();
                 nodesLeft = pendingNodes.Count;
 
+                var placingLH = true;
+
                 foreach (var pendingNode in pendingNodes)
                 {
                     var newTag = GetRandom(pendingNode.roomTags);
-                    if (iteration == (dungeonSizeIn - 1))
+
+                    if (iteration == (dungeonSizeIn - 1)) //If last iteration
                     {
                         newTag = "DE";
-                        if ((nodesLeft == 1) && (clusterIteration < clusterCount))
+                        //if ((nodesLeft == 1) && (clusterIteration < clusterCount))
+                        if ((placingLH) && (clusterIteration < clusterCount-1))
                         {
-                            clusterNode = pendingNode;
-                            Debug.Log("<size=16>Last Node of this cluster: <color=red>" + clusterNode.name + "</color></size>");
-                            clusterStich = true;
                             newTag = "LH";
                         }
                     }
@@ -142,7 +142,7 @@ public class DungeonGeneration : MonoBehaviour {
                                 //Debug.Log("TAG WB, RPA: " + roomPlacementAttempts);
                                 if (roomPlacementAttempts > 16)
                                 {
-                                    //Debug.Log("<color=red><size=16>DELETING WALL BLOCKER</size></color>, nodes left: <color=purple>" + (nodesLeft) + "</color>"); Debugging
+                                    //Debug.Log("<color=red><size=16>DELETING WALL BLOCKER</size></color>, nodes left: <color=purple>" + (nodesLeft) + "</color>"); //Debugging
                                     collisionLoop = false;
                                     roomPlacementAttempts = 0;
                                     Destroy(newRoom.gameObject);
@@ -160,6 +160,13 @@ public class DungeonGeneration : MonoBehaviour {
                             Debug.Log("New Room Placed:<color=blue> " + tempName + "</color>, as: <color=blue>" + newRoom.name + "</color>, Attached to: <color=olive>" + pendingNode.transform.parent.name + "</color>", newRoom); // Debugging
                             newRoom.NameNodes(); // Debugging
 
+                            if(newTag == "LH")
+                            {
+                                placingLH = false;
+                                clusterNode = pendingNode;
+                                Debug.Log("<size=16>Cluster Node: <color=red>" + clusterNode.name + "</color></size>");
+                            }
+
                             collisionLoop = false;
                             roomPlacementAttempts = 0;
                         }
@@ -169,7 +176,7 @@ public class DungeonGeneration : MonoBehaviour {
 
                     newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch)); //Add new nodes that weren't used into node pool
 
-                    Debug.Log("New Exits: (<color=purple>" + newExits.Count + "</color>): " + (ArrayToString<Node>(newExits.ToArray())));
+                    //Debug.Log("New Exits: (<color=purple>" + newExits.Count + "</color>): " + (ArrayToString<Node>(newExits.ToArray()))); // Debugging
                 }
                 pendingNodes = newExits;
 
@@ -254,8 +261,34 @@ public class DungeonGeneration : MonoBehaviour {
         return newTag;
     }
      
-    private void RandomHallway(Node pendingNode, int hallSizeIn)
+    private void RandomHallway(Node pendingNodeIn, int hallSizeIn)
     {
-        
+        var newTag = "SH";
+        var oldNode = pendingNodeIn;
+
+        for (int i = 0; i <= hallSizeIn; i++)
+        {
+            var newExits = new List<Node>();
+            var newRoomPrefab = GetRandomWithTag(dungeonRooms, newTag);
+
+            var newRoom = (Room)Instantiate(newRoomPrefab);
+       
+            var newRoomNodes = newRoom.GetNodes();
+
+            nodeToMatch = newRoomNodes.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newRoomNodes);
+
+            MatchExits(oldNode, nodeToMatch); //Match current room node with newly instantiated room node
+
+            if (newRoom.colliders.isCollided())
+            {
+                if (newRoom != null)
+                {
+                    Destroy(newRoom.gameObject);
+                    return;
+                }
+            }
+            newExits.AddRange(newRoomNodes.Where(e => e != nodeToMatch));
+            oldNode = newExits[0];
+        }
     }
 }
