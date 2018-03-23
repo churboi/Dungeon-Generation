@@ -104,4 +104,4 @@ Modular Dungeon Generation
 
 ### [3/22/2018]
 - More Debugging code added for console indication and DunGen behavior
-- Finished most of the cluster logic, still needs random hallway method and logic for placing random "LH" that works
+- Finished most of the cluster logic, still needs random hallway method and ~~logic for placing random "LH" that works~~
