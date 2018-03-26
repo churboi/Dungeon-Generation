@@ -25,6 +25,7 @@ Modular Dungeon Generation
 6) Make some hallways create entrances when intersecting with a room instead of deadend
 7) Puzzle Rooms
 8) ~~Figure out how to make clusters~~ (My guess is that it generates a whole dungeon, and when it gets to the last node it'll begin generating a new dungeon entirely from the last node, repeat for x iterations)
+9) Move Tag logic into RandomTag override
 
 
 ## Aesthetics of a dungeon
