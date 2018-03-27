@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03020267dab3700469741180c0fff9a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeonSize: 3
-  clusterSize: 4
+  dungeonSize: 20
+  clusterSize: 2
   dungeonRooms:
   - {fileID: 114767461602263492, guid: 5010b9b422ff0f14fa3c6f01e4f21b0a, type: 2}
   - {fileID: 114115374997198438, guid: 4d65e17d99ab27a4c8561c4d8f2c1f2f, type: 2}
@@ -116,4 +116,10 @@ MonoBehaviour:
   - {fileID: 114198430855488730, guid: 65c78c5b6905dea4cac18fe6f0755fdb, type: 2}
   - {fileID: 114444611083056286, guid: 86ba6758a5059b24880eada2092839f0, type: 2}
   waitTime: 0.03
-  debugBuildMessages: 0
+  debugBuildMessages: 1
+  pendingNodesShow: 1
+  newExitNodesShow: 1
+  nodeSubtraction: 0
+  wallBlockerShow: 0
+  DEFCShow: 0
+  clusterShow: 1
