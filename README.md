@@ -110,3 +110,7 @@ Modular Dungeon Generation
 ### [3/23/2018]
 - Optimization on dungeon build time, still needs improvment
 - Debugging code was giving a public flag to toggled
+
+### [3/27/2018]
+- Finished up most debugging helpers
+- Added custom DunGen editor with debugging features
