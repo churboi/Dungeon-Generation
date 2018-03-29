@@ -114,3 +114,7 @@ Modular Dungeon Generation
 ### [3/27/2018]
 - Finished up most debugging helpers
 - Added custom DunGen editor with debugging features
+
+### [3/29/2018]
+- Added Gui button mostly for debugging and showcase
+- Added specific room for creating clusters only tagged "CF"
