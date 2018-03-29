@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
     public DungeonGeneration dunGen;
@@ -8,11 +9,8 @@ public class GameController : MonoBehaviour {
     public PlayerSpawn playerSpawn;
     public Camera mainCamera;
 
-    void Update()
+    public void RestartScene()
     {
-        if(dunGen.FinishedGen)
-        {
-            //Spawn Player and make Camera follow player
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

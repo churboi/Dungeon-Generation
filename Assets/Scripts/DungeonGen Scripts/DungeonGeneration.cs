@@ -238,7 +238,7 @@ public class DungeonGeneration : MonoBehaviour {
 
     private static TItem GetRandom<TItem>(TItem[] array)
     {
-        var randomItem = array[UnityEngine.Random.Range(0, array.Length)];
+        var randomItem = array[Random.Range(0, array.Length)];
         return randomItem;
     }
 
