@@ -9,6 +9,7 @@ public class DungeonGeneration : MonoBehaviour {
     [Header("Dungeon Variables")]
     public int dungeonSize;
     public int clusterSize;
+    public int randomPlacementThreshold;
 
     [Header("Dungeon Rooms")]
     public Room[] dungeonRooms;
@@ -35,6 +36,8 @@ public class DungeonGeneration : MonoBehaviour {
     public bool DEFCShow;
     [HideInInspector]
     public bool clusterShow;
+    [HideInInspector]
+    public bool collisionShow;
 
     private Node[] newRoomNodes;
     private Node nodeToMatch;
@@ -153,6 +156,10 @@ public class DungeonGeneration : MonoBehaviour {
                         {
                             if (newRoom != null)
                             {
+                                if (collisionShow)
+                                {
+                                    Debug.Log("<size=12><b>Collision at: </b></size>" + newRoom.transform.position + ", <size=12><b>With:</b></size> " + newRoom.gameObject.name);
+                                }
                                 Destroy(newRoom.gameObject);
                             }
                             collisionLoop = true;
@@ -161,11 +168,11 @@ public class DungeonGeneration : MonoBehaviour {
                             {
                                 newTag = GetRandom(pendingNode.roomTags);
                             }
-                            if (roomPlacementAttempts > 15)
+                            if (roomPlacementAttempts > randomPlacementThreshold)
                             {
                                 newTag = "WB";
                                 
-                                if (roomPlacementAttempts > 16)
+                                if (roomPlacementAttempts > randomPlacementThreshold+1)
                                 {
                                     if (debugBuildMessages && wallBlockerShow)
                                     {

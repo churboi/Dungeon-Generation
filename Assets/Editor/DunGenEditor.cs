@@ -9,7 +9,11 @@ public class DunGenEditor : Editor
 
         DungeonGeneration DunGen = (DungeonGeneration)target;
 
-        if (GUI.changed) { EditorUtility.SetDirty(DunGen); }
+        if (GUI.changed) {
+            EditorUtility.SetDirty(DunGen);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(DunGen.gameObject.scene);
+
+        }
 
         base.OnInspectorGUI();
 
@@ -20,6 +24,7 @@ public class DunGenEditor : Editor
         DunGen.wallBlockerShow = EditorGUILayout.Toggle("Wall Blocking", DunGen.wallBlockerShow);
         DunGen.DEFCShow = EditorGUILayout.Toggle("Dead end frequency correction", DunGen.DEFCShow);
         DunGen.clusterShow = EditorGUILayout.Toggle("Cluster information", DunGen.clusterShow);
+        DunGen.collisionShow = EditorGUILayout.Toggle("Collision information", DunGen.collisionShow);
         EditorGUILayout.EndToggleGroup();
     }
 }

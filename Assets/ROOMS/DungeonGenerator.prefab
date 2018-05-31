@@ -51,8 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03020267dab3700469741180c0fff9a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeonSize: 10
-  clusterSize: 2
+  dungeonSize: 8
+  clusterSize: 5
+  randomPlacementThreshold: 5
   dungeonRooms:
   - {fileID: 114767461602263492, guid: 5010b9b422ff0f14fa3c6f01e4f21b0a, type: 2}
   - {fileID: 114115374997198438, guid: 4d65e17d99ab27a4c8561c4d8f2c1f2f, type: 2}
@@ -98,9 +99,10 @@ MonoBehaviour:
   - {fileID: 114452109574705412, guid: d69527554d09a454aa626445484398b0, type: 2}
   - {fileID: 114727588089209286, guid: 3ca1cd93c26d2b549bba477cb07318f7, type: 2}
   - {fileID: 114686196096143270, guid: d2c9aae19d8ff534c9a9a60d370f5814, type: 2}
+  - {fileID: 114148183571536652, guid: cca8931a77a689247953e2fc1a8133d0, type: 2}
   dungeonEntrance: {fileID: 114011023919949798, guid: 59d6ce72ab929bc4c859b6640f53f6ad,
     type: 2}
-  testMode: 0
+  testMode: 1
   testRooms:
   - {fileID: 114452109574705412, guid: d69527554d09a454aa626445484398b0, type: 2}
   - {fileID: 114767461602263492, guid: 5010b9b422ff0f14fa3c6f01e4f21b0a, type: 2}
@@ -115,11 +117,14 @@ MonoBehaviour:
   - {fileID: 114446740693298122, guid: cb807149927a5e944bed9c4b37c2cf3a, type: 2}
   - {fileID: 114198430855488730, guid: 65c78c5b6905dea4cac18fe6f0755fdb, type: 2}
   - {fileID: 114444611083056286, guid: 86ba6758a5059b24880eada2092839f0, type: 2}
-  waitTime: 0.03
+  - {fileID: 114148183571536652, guid: cca8931a77a689247953e2fc1a8133d0, type: 2}
+  - {fileID: 114191748976022582, guid: 90f1f5ebde47a184a80bb8c3e99cc39d, type: 2}
+  waitTime: 0.02
   debugBuildMessages: 1
-  pendingNodesShow: 1
-  newExitNodesShow: 1
+  pendingNodesShow: 0
+  newExitNodesShow: 0
   nodeSubtraction: 0
   wallBlockerShow: 0
   DEFCShow: 0
   clusterShow: 1
+  collisionShow: 0
