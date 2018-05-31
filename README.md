@@ -118,3 +118,8 @@ Modular Dungeon Generation
 ### [3/29/2018]
 - Added Gui button mostly for debugging and showcase
 - Added specific room for creating clusters only tagged "CF"
+
+### [5/31/2018]
+- Added new room "CrossSection"
+- Removed most collision boxes for optimization
+- Added Debugging Gui option to see collisions and position
