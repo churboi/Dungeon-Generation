@@ -1068,7 +1068,7 @@ GameObject:
   - component: {fileID: 54231458309624826}
   - component: {fileID: 114011023919949798}
   m_Layer: 0
-  m_Name: StartRoom
+  m_Name: 'Room: 0'
   m_TagString: startRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
