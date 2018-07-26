@@ -138,13 +138,11 @@ public class DungeonGeneration : MonoBehaviour {
                         
                         var newRoomPrefab = GetRandomWithTag(roomsToUse, newTag);
 
-
                         var newRoom = (Room)Instantiate(newRoomPrefab);
 
                         //yield return new WaitForSeconds(waitTime);
 
                         newRoomNodes = newRoom.GetNodes();
-
 
                         nodeToMatch = newRoomNodes.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newRoomNodes);
 

@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
+
     public DungeonGeneration dunGen;
-    public Player player;
-    public PlayerSpawn playerSpawn;
     public Camera mainCamera;
 
     public void RestartScene()

@@ -1068,7 +1068,7 @@ GameObject:
   - component: {fileID: 54231458309624826}
   - component: {fileID: 114011023919949798}
   m_Layer: 0
-  m_Name: 'Room: 0'
+  m_Name: StartRoom
   m_TagString: startRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5632,7 +5632,6 @@ MonoBehaviour:
   roomTags:
   - SR
   colliders: {fileID: 114096694859532100}
-  spawner: {fileID: 114372247174810502}
 --- !u!114 &114096694859532100
 MonoBehaviour:
   m_ObjectHideFlags: 1

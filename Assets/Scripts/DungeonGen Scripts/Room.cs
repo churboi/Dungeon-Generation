@@ -22,29 +22,4 @@ public class Room : MonoBehaviour {
             nodes[i].name = (this.name + "'s node: " + (i+1)); 
         }
     }
-
-
-
-    /*
-    public GameObject[] GetNodesInRoom()
-    {
-        List<GameObject> roomNodes = new List<GameObject>();
-        for(int i = 0; i < nodes.Length;i++)
-        {
-            roomNodes.Add(nodes[i]);
-        }
-        GameObject[] roomNodesArray = roomNodes.ToArray();
-        return roomNodesArray;
-    }
-    public override string ToString()
-    {
-        var String = "Room: " + transform.name + "\n";
-        String += "Nodes: " + nodes.Length + "\n";
-        for (int i = 0; i < nodes.Length; i++)
-        {
-            String += "Node [" + i + "], Position:" + nodes[i].transform.position + ", Tag: " + nodes[i].tag +"\n";
-        }
-        return String;
-    }
-    */
 }
