@@ -4,5 +4,14 @@ using UnityEngine;
 
 public class StartRoom : Room {
 
-	
+    public GameObject spawnPoint;
+    public GameObject player;
+
+    public void spawnPlayer()
+    {
+        Instantiate(player, spawnPoint.transform);
+    }
+
+    
+
 }

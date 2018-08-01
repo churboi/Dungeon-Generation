@@ -48,8 +48,7 @@ public class DungeonGeneration : MonoBehaviour {
     {
         get { return finishedGeneration; }
     }
-
-    private void Start()
+    public void GenDun()
     {
         StartCoroutine(DungeonGen(dungeonSize, clusterSize));
     }
@@ -58,6 +57,7 @@ public class DungeonGeneration : MonoBehaviour {
     {
         var roomCount = 0;
         var roomsToUse = dungeonRooms;
+
         if (testMode)
         {
             roomsToUse = testRooms;
@@ -67,6 +67,7 @@ public class DungeonGeneration : MonoBehaviour {
             Debug.Log("<b>Cluster Count: " + clusterCount + ", Dungeon Size: " + dungeonSize + "</b>");
         }
 
+        //Start of the Actual Generation, Start of the cluster logic
         for (int clusterIteration = 0; clusterIteration < clusterCount; clusterIteration++)
         {
             if(debugBuildMessages && clusterShow)
@@ -74,22 +75,28 @@ public class DungeonGeneration : MonoBehaviour {
                 Debug.Log("<size=18><b>New Cluster</b></size>"); // Debugging
             }
 
+            //Sets the startRoom to whatever you assigned to dungeonEntrance
             var startRoom = dungeonEntrance;
+            //Creates a list of Nodes called "pendingNodes" that need rooms attached to them
             var pendingNodes = new List<Node>();
 
+            //If this is the first cluster (or there are no clusters): Creates starting room in the middle of scene, names and tags room, and puts nodes from startRoom in pendingNodes
             if (clusterIteration == 0 )
             {
                 Instantiate(startRoom, transform.position, transform.rotation);
-                startRoom.name = ("Room: " + roomCount);
-                startRoom.tag = "startRoom";
-                pendingNodes = new List<Node>(startRoom.GetNodes());
+                startRoom.name = ("Room: " + roomCount); //Names startRoom
+                startRoom.tag = "startRoom"; //Tags startRoom
+                pendingNodes = new List<Node>(startRoom.GetNodes()); //Puts empty nodes from startRoom in pendingNodes
             }
-
+            //If you have clusters enabled, clears pendingNodes and puts the last Node left in pendingNodes
             else
             {
+                //Empty pendingNode list
                 pendingNodes.Clear();
+                //If there is a last node in the cluster Logic
                 if(clusterNode != null)
                 {
+                    //clusterNode grabbed at the end of the cluster logic. Adds the last Node to pendingNodes
                     pendingNodes.Add(clusterNode);
                     if (debugBuildMessages && clusterShow)
                     {
@@ -97,55 +104,67 @@ public class DungeonGeneration : MonoBehaviour {
                     }
                 }
             }
-
+            //Creates variable to find how many pendingNodes are left
             int nodesLeft = pendingNodes.Count;
 
-            //Main  Section
+            //Main Section Dungeon Generation
             for (int iteration = 0; iteration < dungeonSizeIn; iteration++)
             {
+                //Local variable made for holding any new exits that are created during a construction chunk (loop), this does not include the nodes in pendingNodes
                 var newExits = new List<Node>();
+                //updates nodesLeft count
                 nodesLeft = pendingNodes.Count;
 
+                //Local variable for clusters, determines whether or not a long Hall should be place (BAD Logic for creating more distance between clusters. 
                 var placingLH = true;
 
+                //goes through the list of pendingNodes
                 foreach (var pendingNode in pendingNodes)
                 {
+                    //Local variable for getting tag based on what the currentNode allows
                     var newTag = GetRandom(pendingNode.roomTags);
-
-                    if (iteration == (dungeonSizeIn - 1)) //If last iteration
+                    //If last iteration
+                    if (iteration == (dungeonSizeIn - 1)) 
                     {
+                        //If it's the last iteration force tag to be "Dead End"
                         newTag = "DE";
+                        //If there are more Clusters that need to be made, and placing Long Hall is true
                         if ((placingLH) && (clusterIteration < clusterCount-1))
                         {
                             newTag = "LH";
                         }
                     }
-                    
+                    //Local Variable for checking collisions
                     var collisionLoop = false;
+                    //Local Variable tracking room placement attempts
                     var roomPlacementAttempts = 0;
                     
                     do
                     {
+                        //If it's part of a the cluster and it's the last node
                         if ((clusterIteration > 0) && (pendingNodes.Count == 1))
                         {
+                            //new tag Cluster Friendly
                             newTag = "CF";
                         }
-                        //Make this occur less often
-                        if (!(iteration == (dungeonSizeIn - 1)))
+                        //If it's not the last interation, try to make the new tag something other than a Dead End
+                        if (!(iteration == (dungeonSizeIn - 1))) //Make this occur less often
                         {
+                            //Dead end correction method for checking the circumstances 
                             newTag = DeadEndFreqencyCorrection(newTag, nodesLeft, pendingNode);
                         }
                         
+                        //Local Variable for holding the room object that will be attempted
                         var newRoomPrefab = GetRandomWithTag(roomsToUse, newTag);
-
+                        //Local Variable for the actual Game Object
                         var newRoom = (Room)Instantiate(newRoomPrefab);
-
-                        //yield return new WaitForSeconds(waitTime);
-
+                        //Waits for a short moment to help with collisions (Looking for a fix)
+                        yield return new WaitForSeconds(waitTime);
+                        //Stores the nodes of the new Room
                         newRoomNodes = newRoom.GetNodes();
-
+                        //Find a node in new Room to attach to pending Node
                         nodeToMatch = newRoomNodes.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newRoomNodes);
-
+                        //Rotate the new Room to line up with pending Node
                         MatchExits(pendingNode, nodeToMatch);
 
                         yield return new WaitForSeconds(waitTime);

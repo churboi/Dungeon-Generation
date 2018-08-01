@@ -276,10 +276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40b4bcaebc919a4c8a1c6b427a3908a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 114916772544916662, guid: 4237eb1f50e58204a9c20635d150bd39, type: 2}
-  dunGen: {fileID: 1967635920}
-  following: 0
-  offset: {x: 0, y: 20, z: -30}
 --- !u!1 &1007784915
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +608,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
         type: 2}
+      propertyPath: testRooms.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
       propertyPath: dungeonRooms.Array.size
       value: 46
       objectReference: {fileID: 0}
@@ -667,6 +668,83 @@ Prefab:
         type: 2}
       propertyPath: clusterSize
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[3]
+      value: 
+      objectReference: {fileID: 114018810667691964, guid: 4732a0d93476cbc48bf7d2c53c02928f,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[4]
+      value: 
+      objectReference: {fileID: 114497994642903964, guid: de024b675b347db44b023b5000f7ba24,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[5]
+      value: 
+      objectReference: {fileID: 114063844219638940, guid: 9ea747aff163efc47a7e48dc96cad38d,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[6]
+      value: 
+      objectReference: {fileID: 114603578446340760, guid: f2860b65e575c644c9fa0d530e24ed1e,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[7]
+      value: 
+      objectReference: {fileID: 114136277475337508, guid: d4ceeb2dd706c264d9bcebac212fd931,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[8]
+      value: 
+      objectReference: {fileID: 114727588089209286, guid: 3ca1cd93c26d2b549bba477cb07318f7,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[9]
+      value: 
+      objectReference: {fileID: 114556700199491680, guid: f03c7ed16c8784b47acd2d55d3468ba9,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[10]
+      value: 
+      objectReference: {fileID: 114446740693298122, guid: cb807149927a5e944bed9c4b37c2cf3a,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[11]
+      value: 
+      objectReference: {fileID: 114198430855488730, guid: 65c78c5b6905dea4cac18fe6f0755fdb,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[12]
+      value: 
+      objectReference: {fileID: 114444611083056286, guid: 86ba6758a5059b24880eada2092839f0,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[13]
+      value: 
+      objectReference: {fileID: 114148183571536652, guid: cca8931a77a689247953e2fc1a8133d0,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testRooms.Array.data[14]
+      value: 
+      objectReference: {fileID: 114191748976022582, guid: 90f1f5ebde47a184a80bb8c3e99cc39d,
+        type: 2}
+    - target: {fileID: 114347854270586212, guid: bdcde32a8f228054aad88d32feb0255e,
+        type: 2}
+      propertyPath: testMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bdcde32a8f228054aad88d32feb0255e, type: 2}
