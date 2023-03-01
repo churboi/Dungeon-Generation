@@ -123,3 +123,8 @@ Modular Dungeon Generation
 - Added new room "CrossSection"
 - Removed most collision boxes for optimization
 - Added Debugging Gui option to see collisions and position
+
+### [3/1/2023]
+- Plans on editing collision logic in said order (Decide on slopes)
+    - If collision with random room, try small hallway, try single dead end room
+    - If both collide and wall collide, delete wall.
